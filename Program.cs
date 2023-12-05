@@ -98,17 +98,19 @@ namespace Practice_Linq
         // Запит 4
         static void Query4(List<FootballGame> games)
         {
-            //Query 4: Вивести всі матчі збірної Германії з 2018 року по 2020 рік (включно), в яких вона на виїзді програла.
+            var selectedGames = from game in games
+                where game.Date.Year >= 2018 &&
+                      game.Date.Year <= 2020 &&
+                      game.Away_team == "Germany" &&
+                      game.Home_score > game.Away_score
+                select game;
 
-            var selectedGames = games;   // Корегуємо запит !!!
-
-
-            // Перевірка
             Console.WriteLine("\n======================== QUERY 4 ========================");
-
-            // див. приклад як має бути виведено:
-
-
+            foreach (var game in selectedGames)
+            {
+                Console.WriteLine(
+                    $"{game.Date:dd.MM.yyyy} {game.Home_team} - {game.Away_team}, Score: {game.Home_score} - {game.Away_score}, Country: {game.Country}");
+            }
         }
 
         // Запит 5
