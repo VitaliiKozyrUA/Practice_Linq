@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿﻿using Newtonsoft.Json;
 
 namespace Practice_Linq
 {
@@ -44,19 +44,20 @@ namespace Practice_Linq
 
 
         // Запит 1
-        static void Query1(List<FootballGame> games)
+        private static void Query1(List<FootballGame> games)
         {
-            //Query 1: Вивести всі матчі, які відбулися в Україні у 2012 році.
+            var selectedGames = from game in games
+                where game.Country == "Ukraine" &&
+                      game.Date.Year == 2012
+                select game;
 
-            var selectedGames = games; // Корегуємо запит !!!
-
-
-            // Перевірка
             Console.WriteLine("\n======================== QUERY 1 ========================");
-
-            // див. приклад як має бути виведено:
-
-
+            foreach (var game in selectedGames)
+            {
+                string score = $"{game.Home_score} - {game.Away_score}";
+                Console.WriteLine(
+                    $"{game.Date:dd.MM.yyyy} {game.Home_team} - {game.Away_team}, Score: {score}, Country: {game.Country}");
+            }
         }
 
         // Запит 2
